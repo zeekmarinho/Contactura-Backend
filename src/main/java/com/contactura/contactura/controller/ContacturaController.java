@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.contactura.contactura.model.Contactura;
 import com.contactura.contactura.repository.ContacturaRepository;
 
+@CrossOrigin()
 @RestController
 @RequestMapping({"/contactura"}) //http://localhost:8090/contactura
 public class ContacturaController {
@@ -44,7 +47,7 @@ public class ContacturaController {
 	}
 	
 //	Update - http://localhost:8090/contactura/{id}
-	@PutMapping(value = "{id}")
+	@PutMapping(value = "{id}")	
 	public ResponseEntity<?> update(@PathVariable long id, @RequestBody Contactura contactura) {
 		return repository.findById(id)
 				.map(record -> {
@@ -58,11 +61,12 @@ public class ContacturaController {
 	
 //	Delete - http://localhost:8090/contactura/{id}
 	@DeleteMapping(path = {"/{id}"})
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<?> delete(@PathVariable long id){
 		return repository.findById(id)
 				.map(record -> {
 					repository.deleteById(id);
-					return ResponseEntity.ok().build();
+					return ResponseEntity.ok().body("Deletado com sucesso");
 				}).orElse(ResponseEntity.notFound().build());
 	}
 }

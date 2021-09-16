@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.contactura.contactura.ContacturaApplicationTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 13.215 s - in com.contactura.contactura.ContacturaApplicationTests
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 30.995 s - in com.contactura.contactura.ContacturaApplicationTests
